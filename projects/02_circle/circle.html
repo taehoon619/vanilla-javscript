@@ -1,0 +1,70 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>circle 그리기3</title>
+    <style>
+        section{
+            display: flex;
+            width: 600px;
+            height: 600px;
+        }
+        #circle{
+            position: relative;
+            /* height: auto; */
+            border-radius: 50%;
+            /* background-color: red; */
+        }
+    </style>
+</head>
+<body>
+    <section id="circleSection"></section>
+    <script>
+        const section = document.getElementById('circleSection');
+
+        const createCircle = () => {
+            let circle = document.createElement('div');
+            circle.setAttribute('id','circle');
+
+            section.appendChild(circle);
+
+            const changeColor = () => {
+                let randomColor = Math.random() * 0xffffff;
+                let colorCode = "#" + Math.round(randomColor).toString(16);
+
+                circle.style.backgroundColor = colorCode;
+            }
+
+            const circlePos = Math.floor(Math.random()*500)+1 
+            let circlePi = Math.floor(Math.random()*20)+1
+
+            circle.style.top = circlePos + "px";
+            circle.style.left = circlePos + "px";
+
+            const circleTimer = setInterval(() => {
+                circlePi += 2
+                circle.style.width = circlePi + "px";
+                circle.style.height = circlePi + "px";
+                changeColor()
+                if(circlePi > 40){
+                    clearInterval(circleTimer)
+                    deleteCircle() // 문제
+                } 
+            }, 100)
+
+            const deleteCircle = () => {
+                section.removeChild(circle) // 문제
+            }
+        }
+
+        const circleBtn = () => {
+            if(event.keyCode === 68){
+                createCircle();
+            }
+        }
+
+        window.addEventListener('keydown', circleBtn)
+        section.addEventListener('click',createCircle)
+    </script>
+</body>
+</html>
