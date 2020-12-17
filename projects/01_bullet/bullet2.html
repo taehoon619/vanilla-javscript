@@ -1,0 +1,84 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>총2</title>
+    <style>
+        section{
+            width: 300px;
+            height: 50px;
+            background-color: skyblue;
+            display: flex;
+        }
+        #circle{
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            border-color: brown;
+            border-radius: 50%;
+        }
+        #bullet{
+            position: relative;
+            display: flex;
+            width: 10px;
+            height: 25px;
+            border-bottom: 2px solid blue;
+        }
+    </style>
+</head>
+<body>
+    <section id="shooting">
+        <div id="circle"></div>
+    </section>
+
+    <script>
+        const shotGame = document.getElementById("shooting")
+        
+        const createBullet = () => { // 총알을 만들고
+            let bullet = document.createElement('div'); // 오직하나?
+            bullet.setAttribute('id','bullet');
+            
+            shotGame.appendChild(bullet);
+            
+            return bullet;
+        }
+
+        
+
+        const putBullet = (createdBullet) => { // bullet을 원하는 위치에서 움직이고 시작하기(setInterval)
+            let positionBullet = 0;
+            
+            const time = setInterval(() => {
+                positionBullet += 10
+                createdBullet.style.left = positionBullet + "px"
+                if(positionBullet >= 250){
+                    deleteBullet()
+                    clearInterval(time)
+                }
+            }, 100);
+        }
+
+        
+        const deleteBullet = (createdBullet) => { // 일정 거리 넘어가면 bullet 삭제 
+            shotGame.removeChild(createdBullet);
+            
+        }   
+
+        const shot = () => { // bullet이 생성되고 움직이는 과정 
+            const createdBullet = createBullet();
+            putBullet(createdBullet);
+        }
+
+        const handleKeyDown = () => { // down만들기
+            if(event.keyCode === 68){
+                shot()
+            }
+        }
+
+        window.addEventListener('keydown', handleKeyDown)
+
+
+    
+    </script>
+</body>
+</html>
