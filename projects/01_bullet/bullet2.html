@@ -5,7 +5,7 @@
     <title>총2</title>
     <style>
         section{
-            width: 300px;
+            width: 1000px;
             height: 50px;
             background-color: skyblue;
             display: flex;
@@ -51,11 +51,11 @@
             const time = setInterval(() => {
                 positionBullet += 10
                 createdBullet.style.left = positionBullet + "px"
-                if(positionBullet >= 250){
-                    deleteBullet()
+                if(positionBullet >= 950){
+                    deleteBullet(createdBullet)
                     clearInterval(time)
                 }
-            }, 100);
+            }, 10);
         }
 
         
