@@ -10,7 +10,7 @@
             height: 600px;
         }
         #circle{
-            position: relative;
+            position: absolute;
             /* height: auto; */
             border-radius: 50%;
             /* background-color: red; */
@@ -20,51 +20,82 @@
 <body>
     <section id="circleSection"></section>
     <script>
-        const section = document.getElementById('circleSection');
+    const section = document.getElementById('circleSection');
 
-        const createCircle = () => {
-            let circle = document.createElement('div');
-            circle.setAttribute('id','circle');
+    const createCircle = () => {
+        let circle = document.createElement('div');
+        circle.setAttribute('id','circle');
 
-            section.appendChild(circle);
+        section.appendChild(circle);
 
-            const changeColor = () => {
-                let randomColor = Math.random() * 0xffffff;
-                let colorCode = "#" + Math.round(randomColor).toString(16);
+        return circle;
+    }
 
-                circle.style.backgroundColor = colorCode;
-            }
+    const changeCircle = (circle) => {
+        const circlePosX = Math.floor(Math.random()*500)+1
+        const circlePosY = Math.floor(Math.random()*500)+1  
+        let circlePi = Math.floor(Math.random()*20)+1
 
-            const circlePos = Math.floor(Math.random()*500)+1 
-            let circlePi = Math.floor(Math.random()*20)+1
+        circle.style.top = circlePosY + "px";
+        circle.style.left = circlePosX + "px";
 
-            circle.style.top = circlePos + "px";
-            circle.style.left = circlePos + "px";
+        const circleTimer = setInterval(() => {
+            circlePi += 1
+            circle.style.width = circlePi + "px";
+            circle.style.height = circlePi + "px";
+            circle.style.backgroundColor = createRandomColor()
+            if(circlePi > 50){
+                clearInterval(circleTimer)
+                deleteCircle(circle) // 문제
+            } 
+        }, 100)
+    }
 
-            const circleTimer = setInterval(() => {
-                circlePi += 2
-                circle.style.width = circlePi + "px";
-                circle.style.height = circlePi + "px";
-                changeColor()
-                if(circlePi > 40){
-                    clearInterval(circleTimer)
-                    deleteCircle() // 문제
-                } 
-            }, 100)
+    const deleteCircle = (createdCircle) => {
+    section.removeChild(createdCircle) // 문제
+    }
 
-            const deleteCircle = () => {
-                section.removeChild(circle) // 문제
-            }
+    const clickLocation = (circle) => {
+        let clickX = event.clientX;
+        let clickY = event.clientY;
+        let circlePi = Math.floor(Math.random()*20)+1
+
+        circle.style.top = clickY + "px";
+        circle.style.left = clickX + "px";
+
+        const circleTimer = setInterval(() => {
+            circlePi += 1
+            circle.style.width = circlePi + "px";
+            circle.style.height = circlePi + "px";
+            circle.style.backgroundColor = createRandomColor()
+            if(circlePi > 50){
+                clearInterval(circleTimer)
+                deleteCircle(circle) // 문제
+            } 
+        }, 100)
+    }
+
+    const createRandomColor = (changeCircle, clickLocation) => {
+        let randomColor = Math.random() * 0xffffff;
+        let colorCode = "#" + Math.round(randomColor).toString(16);
+
+        return colorCode;
+    }
+
+    const circleHandelClick = () => {
+        let createdCircle = createCircle();
+        clickLocation(createdCircle)
+    } 
+
+    const circleHandelKeyDown = () => {
+        if(event.keyCode === 68){
+            let createdCircle = createCircle();
+            changeCircle(createdCircle)
         }
+    }
 
-        const circleBtn = () => {
-            if(event.keyCode === 68){
-                createCircle();
-            }
-        }
-
-        window.addEventListener('keydown', circleBtn)
-        section.addEventListener('click',createCircle)
+    window.addEventListener('keydown', circleHandelKeyDown)
+    window.addEventListener('click',circleHandelClick)
     </script>
 </body>
 </html>
