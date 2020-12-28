@@ -6,8 +6,9 @@
     <style>
         section{
             display: flex;
-            width: 600px;
-            height: 600px;
+            width: 500px;
+            height: 500px;
+            border: 1px solid black;
         }
         #circle{
             position: absolute;
@@ -95,7 +96,7 @@
     }
 
     window.addEventListener('keydown', circleHandelKeyDown)
-    window.addEventListener('click',circleHandelClick)
+    section.addEventListener('click',circleHandelClick)
     </script>
 </body>
 </html>
