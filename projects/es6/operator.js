@@ -128,7 +128,7 @@ switch(browser){
         console.log('same all!');
         break;
 }
- 
+
 // 11. Loops
 // while loop, while the condition is truthy,
 // body code is executed.
